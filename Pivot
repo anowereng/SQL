@@ -1,0 +1,16 @@
+
+SELECT stuId,resultId, 
+[Class Test],  [Attendance], [Mid Term], [Final Term]
+FROM
+(	
+SELECT stuId, dtResultEntry,A.resultId,Type,Marks
+FROM tbl_StuResult A
+inner join tbl_StuResult_Sub  B on A.resultId=B.ResultId
+	
+) AS A
+	
+PIVOT
+(
+sum(Marks)
+FOR Type IN ([Class Test],  [Attendance], [Mid Term], [Final Term])
+) AS PivotTable;
