@@ -14,3 +14,24 @@ PIVOT
 sum(Marks)
 FOR Type IN ([Class Test],  [Attendance], [Mid Term], [Final Term])
 ) AS PivotTable;
+
+
+--------------2 nd
+
+SELECT stuId,resultId,courseName, courseCode, 
+[Class Test],  [Attendance], [Mid Term], [Final Term], courseCredit--, sum([Class Test]+[Attendance])
+FROM
+
+(	
+SELECT stuId,A.resultId,Type,Marks,c.courseName, courseCode,courseCredit
+FROM tbl_StuResult A
+inner join tbl_StuResult_Sub  B on A.resultId=B.ResultId
+Inner JOin tblCourse C on C.courseId= A.courseId	
+group by stuId,A.resultId,Type,Marks,c.courseName, courseCode,courseCredit
+) AS A
+
+PIVOT
+(
+sum(Marks)
+FOR Type IN ([Class Test],  [Attendance], [Mid Term], [Final Term])
+) AS PivotTable;
