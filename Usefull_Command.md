@@ -10,3 +10,5 @@ set statistics io on
 ```
 create index IX_Reports_TotalCost on Reports (totalcost desc)
 ```
+## Findout table or proc info 
+exec sp_help Reports
